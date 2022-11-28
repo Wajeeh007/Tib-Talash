@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12531180510",
+    "project_id": "tib-talash-4fac9",
+    "storage_bucket": "tib-talash-4fac9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12531180510:android:b265be04af9893b890734f",
+        "android_client_info": {
+          "package_name": "com.example.tib_talash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12531180510-ipasug02lour6n82daag6vnhvq3rhj5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkohub0Aj3NK4vejpn0d3cUD1fYK2-IUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12531180510-ipasug02lour6n82daag6vnhvq3rhj5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
