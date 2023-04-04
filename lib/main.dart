@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tib_talash/screens/user_screens/feature_screens/doctorsList.dart';
 import 'screens/user_screens/feature_screens/pharmacy.dart';
-import 'screens/user_screens/HomePage.dart';
+import 'screens/user_screens/userHomePage.dart';
 import 'constants.dart';
-import 'screens/user_screens/signup&login/login.dart';
-import 'screens/user_screens/signup&login/signup.dart';
+import 'screens/user_screens/signup&login/userLogin.dart';
+import 'screens/user_screens/signup&login/userSignup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/user_screens/feature_screens/findSpecialist.dart';
 import 'screens/dr_screens/signup&login/dr_login.dart';
 import 'screens/dr_screens/signup&login/dr_signup_1.dart';
-import 'screens/dr_screens/HomePage.dart';
-import 'screens/dr_screens/feature_screens/ChatScreen.dart';
+import 'screens/dr_screens/docHomePage.dart';
+//import 'screens/dr_screens/feature_screens/ChatScreen.dart';
 import 'screens/dr_screens/signup&login/dr_signup_2.dart';
 
 void main() async {
@@ -49,7 +49,7 @@ class TibTalash extends StatelessWidget {
         doctorsList.doctorsListID: (context) => doctorsList(''),
         dr_signup_1.dr_signupID: (context) => dr_signup_1(),
         dr_homePage.dr_homePageID: (context) => dr_homePage(),
-        chatScreen.chatScreenID: (context) => chatScreen('', '', ''),
+  //      chatScreen.chatScreenID: (context) => chatScreen('', '', ''),
         dr_signup_2.signup_2ID: (context) => dr_signup_2(),
       },
     );
