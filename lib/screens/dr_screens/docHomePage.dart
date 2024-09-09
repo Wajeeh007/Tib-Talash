@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'widgets/doneappointment_bubble.dart';
 import 'widgets/upcomingappointment_bubble.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
-enum selected_view {
+enum SelectedView {
   upcoming,
   done,
 }
 
-selected_view selection = selected_view.upcoming;
+SelectedView selection = SelectedView.upcoming;
 
-class dr_homePage extends StatefulWidget {
+class DrHomePage extends StatefulWidget {
   static const dr_homePageID = "dr_homepage_screen";
 
+  const DrHomePage({super.key});
+
   @override
-  State<dr_homePage> createState() => _dr_homePageState();
+  State<DrHomePage> createState() => _DrHomePageState();
 }
 
-class _dr_homePageState extends State<dr_homePage> {
+class _DrHomePageState extends State<DrHomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +35,18 @@ class _dr_homePageState extends State<dr_homePage> {
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(const Radius.circular(40.0)),
+                      borderRadius: const BorderRadius.all(Radius.circular(40.0)),
                       color: Colors.white,
                       border: Border.all(
                         color: Colors.grey.shade400
                       )
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          const TextButton(
+                          TextButton(
                             onPressed: null,
                             child: Icon(
                               Icons.view_headline,
@@ -52,72 +54,76 @@ class _dr_homePageState extends State<dr_homePage> {
                               color: Colors.grey,
                             ),
                           ),
-                          const Text('Tib Talash',
+                          Text('Tib Talash',
                               style: kHomeTitleTextStyle
                           ),
-                          const TextButton(
+                          TextButton(
                             onPressed: null,
-                            child: const Icon(Icons.account_circle,
-                              size: 25.0,),
+                            child: Icon(Icons.account_circle,
+                              size: 35.0,),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                upcoming_appointments(),
+                const UpcomingAppointments(),
               ],
             )
         ),
         bottomNavigationBar: BottomAppBar(
+          color: Colors.transparent,
+          height: 60,
+          padding: EdgeInsets.zero,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: GestureDetector(
-                  onTap: (){
-                    setState((){
-                      selection = selected_view.upcoming;
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: selection == selected_view.upcoming ? Colors.white:primColor,
-                      border: Border.all(
-                        color: selection == selected_view.upcoming? Colors.grey:primColor,
-                      )
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(5.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: selection == SelectedView.upcoming ? Colors.white:primColor,
+                    border: Border.all(
+                      color: selection == SelectedView.upcoming? Colors.grey:primColor,
+                    )
+                  ),
+                  child: GestureDetector(
+                    onTap: (){
+                      setState((){
+                        selection = SelectedView.upcoming;
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
                       child: Icon(
                         Icons.list_alt_outlined,
                         size: 40,
-                        color: Colors.grey,
+                        color: selection == SelectedView.upcoming ? Colors.grey : Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: GestureDetector(
-                  onTap:() {
-                    setState((){
-                      selection = selected_view.done;
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: selection == selected_view.done ? Colors.white:primColor,
-                        border: Border.all(
-                          color: selection == selected_view.done? Colors.grey:primColor,
-                        )
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(5.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: selection == SelectedView.done ? Colors.white:primColor,
+                      border: Border.all(
+                        color: selection == SelectedView.done? Colors.grey:primColor,
+                      )
+                  ),
+                  child: GestureDetector(
+                    onTap:() {
+                      setState((){
+                        selection = SelectedView.done;
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
                       child: Icon(
                         Icons.check_box,
                         size: 40.0,
-                        color: Colors.grey
+                        color: selection == SelectedView.done ? Colors.grey : Colors.white
                       ),
                     ),
                   ),
@@ -131,71 +137,79 @@ class _dr_homePageState extends State<dr_homePage> {
   }
 }
 
-class upcoming_appointments extends StatelessWidget {
-
+class UpcomingAppointments extends StatelessWidget {
+  const UpcomingAppointments({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('doctors_data').doc(Myid).collection('appointments').snapshots(),
+      stream: _firestore.collection('doctors_data').doc(myId).collection('appointments').snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
-            return Center(
-              child: Column(
-                children: [
-                  const Text('Fetching data ...'),
-                  const SizedBox(
-                    height: 3.0,
-                  ),
-                  const CircularProgressIndicator(
-                    backgroundColor: primColor,
-                  )
-                ],
+            return Expanded(
+              child: const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      backgroundColor: primColor,
+                    ),
+                    SizedBox(
+                      height: 3.0,
+                    ),
+                    Text('Fetching data ...', style: TextStyle(color: Colors.grey, fontSize: 18),),
+                  ],
+                ),
               ),
             );
           }
           else if(snapshot.data?.size == 0){
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(image: AssetImage('images/no_appointment.png'), height: 95, width: 95,),
-                SizedBox(
-                  height: 6.0,
+            return Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Image(image: AssetImage('images/no_appointment.png'), height: 95, width: 95,),
+                    const SizedBox(
+                      height: 6.0,
+                    ),
+                    Text(
+                      selection == SelectedView.upcoming ? 'No Appointments made yet' : 'No History of any Appointments',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Ubuntu'
+                      ),
+                    )
+                  ],
                 ),
-                Text(
-                  selection == selected_view.upcoming ? 'No Appointments made yet' : 'No History of any Appointments',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Ubuntu'
-                  ),
-                )
-              ],
+              ),
             );
           }
-          final up_appointments = snapshot.data!.docs;
-          List<UpAppointmentBubble> up_Appointment_bubble = [];
-          List<DoneAppointmentBubble> done_Appointment_bubble = [];
-          for(var u in up_appointments) {
+          final upAppointments = snapshot.data!.docs;
+          List<UpAppointmentBubble> upAppointmentBubble = [];
+          List<DoneAppointmentBubble> doneAppointmentBubble = [];
+          for(var u in upAppointments) {
             final status = u.get('appointment_status');
             if (status == false) {
-              final appointment_time = u.get('appointment_time');
-              final patient_name = u.get('patient_name');
+              final appointmentTime = u.get('appointment_time');
+              final patientTime = u.get('patient_name');
               final gender = u.get('gender');
-              final patient_pic = u.get('picture');
+              final patientPic = u.get('picture');
               final age = u.get('age');
               final uid = u.get('uid');
               final message = u.get('message');
-              final appointment_bubble = UpAppointmentBubble(
-                  appointment_time,
-                  patient_name,
+              final appointmentBubble = UpAppointmentBubble(
+                  appointmentTime,
+                  patientTime,
                   age,
                   gender,
-                  patient_pic,
+                  patientPic,
                   uid,
                   message
               );
-              up_Appointment_bubble.add(appointment_bubble);
+              upAppointmentBubble.add(appointmentBubble);
             }
             else {
               final appointment_time = u.get('appointment_time');
@@ -210,13 +224,13 @@ class upcoming_appointments extends StatelessWidget {
                   gender,
                   patient_pic
               );
-              done_Appointment_bubble.add(appointment_bubble);
+              doneAppointmentBubble.add(appointment_bubble);
             }
           }
           return Column(
             children: [
               Text(
-                selection == selected_view.upcoming ? 'Upcoming Appointments' : 'Done Appointments',
+                selection == SelectedView.upcoming ? 'Upcoming Appointments' : 'Done Appointments',
                 style: TextStyle(
                     color: Colors.grey.shade500,
                     fontSize: 17,
@@ -224,12 +238,12 @@ class upcoming_appointments extends StatelessWidget {
                     fontFamily: 'Ubuntu'
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
               ListView(
                 shrinkWrap: true,
-                children: selection == selected_view.upcoming? up_Appointment_bubble:done_Appointment_bubble
+                children: selection == SelectedView.upcoming? upAppointmentBubble:doneAppointmentBubble
               ),
             ],
           );

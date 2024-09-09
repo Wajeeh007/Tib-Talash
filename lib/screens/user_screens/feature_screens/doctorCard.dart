@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tib_talash/constants.dart';
-import 'package:intl/intl.dart';
+import 'package:tib_talash/helpers/constants.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:tib_talash/screens/user_screens/widgets/doctor_timebubble.dart';
+import '../../../helpers/custom_widgets/doctor_timebubble.dart';
 
 late String selected_time;
 final _firestore = FirebaseFirestore.instance;
@@ -38,7 +38,7 @@ class appointment_Details extends StatelessWidget {
           final sttime = data['start_time'].toDate().toString();
           final entime = data['end_time'].toDate().toString();
           final timeFormat = DateFormat('h:mm a');
-          final time = timeFormat.format(DateTime.parse(sttime)) + " - " + timeFormat.format(DateTime.parse(entime));
+          final time = "${timeFormat.format(DateTime.parse(sttime))} - ${timeFormat.format(DateTime.parse(entime))}";
           for(var day in data['days']){
             if(day_name == day){
               day_check = true;
@@ -47,70 +47,70 @@ class appointment_Details extends StatelessWidget {
             arr.add(spl[0]);
           }
           for(var t in data['time_intervals']){
-            timebubble.add(TimeBubble(t));
+            timebubble.add(TimeBubble(time: t,));
             times.add(t);
           }
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Align(
+                const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Appointment Details: ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.0),)),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Days Available:", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
-                    Text("${arr.join(", ")}", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0),),
+                    const Text("Days Available:", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
+                    Text(arr.join(", "), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0),),
                   ],
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                   height: 10.0,
                   color: Colors.black,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Fee:", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
-                    Text("$fee", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0),),
+                    const Text("Fee:", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
+                    Text("$fee", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0),),
                   ],
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                   height: 10.0,
                   color: Colors.black,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Timings:", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
-                    Text("$time", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0),),
+                    const Text("Timings:", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
+                    Text(time, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0),),
                   ],
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                   height: 10.0,
                   color: Colors.black,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15.0,
                 ),
                 Column(
-                    children: day_check ? [Align(
+                    children: day_check ? [const Align(
                       alignment: Alignment.centerLeft,
                       child: Text('Make An Appointment:',
                         style: TextStyle(
@@ -119,10 +119,10 @@ class appointment_Details extends StatelessWidget {
                         ),
                       ),
                     ),
-                      SizedBox(
+                      const SizedBox(
                         height: 13.0,
                       ),
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           'Available Timings:',
@@ -132,17 +132,17 @@ class appointment_Details extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15.0,
                       ),
                       Wrap(
                           children: timebubble
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 7.0,
                       ),
                       ElevatedButton(
-                        child: Text(
+                        child: const Text(
                           'Make An Appointment',
                           style: TextStyle(
                             color: Colors.white,
@@ -150,7 +150,7 @@ class appointment_Details extends StatelessWidget {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: primColor,
+                          backgroundColor: primColor,
 
                         ),
                         onPressed: (){
@@ -163,7 +163,7 @@ class appointment_Details extends StatelessWidget {
                               desc: "Doctor\'s Name: $doc_name\nTime: $selected_time\nFee: $fee",
                               buttons: [
                                 DialogButton(
-                                  child: Text(
+                                  child: const Text(
                                     'Confirm Details',
                                     style: TextStyle(
                                         color: Colors.white),),
@@ -189,7 +189,7 @@ class appointment_Details extends StatelessWidget {
                                         title: "Appointment Made",
                                         desc: "Your Appointment has been made.\nSee the details:\nDoctor's Name: $doc_name.\nTime: $selected_time\nFee: $fee",
                                         buttons: [
-                                          DialogButton(child: Text(
+                                          DialogButton(child: const Text(
                                             'Continue',
                                             style: TextStyle(
                                               color: Colors.white,

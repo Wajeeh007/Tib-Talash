@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 
 class patient_card extends StatelessWidget {
   static const patient_cardID = "patient_card_screen";

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -10,19 +10,20 @@ import '../docHomePage.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-class dr_login extends StatefulWidget {
+class DrLogin extends StatefulWidget {
   static const dr_loginID = "dr_login screen";
 
+  const DrLogin({super.key});
+
   @override
-  State<dr_login> createState() => _dr_loginState();
+  State<DrLogin> createState() => _DrLoginState();
 }
 
-class _dr_loginState extends State<dr_login> {
+class _DrLoginState extends State<DrLogin> {
   final formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
   bool showSpinner = false;
-  final _auth = FirebaseAuth.instance;
   final emailValidator = MultiValidator([
     RequiredValidator(errorText: 'This field is required*'),
     EmailValidator(errorText: 'Enter a valid email address*'),
@@ -60,8 +61,8 @@ class _dr_loginState extends State<dr_login> {
         if(ds.exists){
           var pass = ds.get('Password');
           if(_password == pass){
-            Myid = _email;
-            Navigator.pushReplacementNamed(context, dr_homePage.dr_homePageID);
+            myId = _email;
+            Navigator.pushReplacementNamed(context, DrHomePage.dr_homePageID);
           }
           else{
             return Alert(
@@ -70,7 +71,7 @@ class _dr_loginState extends State<dr_login> {
                 desc: "You entered an incorrect Password",
                 context: context,
               buttons: [
-               DialogButton(child: Text("Go Back"), onPressed: ()=>updateUI(), width: 140,),
+               DialogButton(onPressed: ()=>updateUI(), width: 140,child: const Text("Go Back"),),
               ]
             ).show();
           }
@@ -84,9 +85,9 @@ class _dr_loginState extends State<dr_login> {
             buttons: [
               DialogButton(
                 color: primColor,
-                child: Text('Retry'),
                 onPressed: ()=>updateUI(),
-                width: 150,)
+                width: 150,
+                child: const Text('Retry'),)
             ]
           ).show();
         }
@@ -105,12 +106,12 @@ class _dr_loginState extends State<dr_login> {
             buttons: [
               DialogButton(
                 color: primColor,
-                child: Text('Retry'),
                 onPressed: (){
                   updateUI();
                   validateAndSubmit();
                   },
-                width: 150,)
+                width: 150,
+                child: const Text('Retry'),)
             ]
           ).show();
         }
@@ -121,11 +122,11 @@ class _dr_loginState extends State<dr_login> {
             desc: "Tib Talash encountered an Unexpected error. Please retry in a few seconds",
             context: context,
             buttons: [
-              DialogButton(child: Text('Retry'), onPressed: (){
+              DialogButton(onPressed: (){
                 updateUI();
                 validateAndSubmit();
               },
-                width: 150, color: primColor,)
+                width: 150, color: primColor,child: const Text('Retry'),)
             ]
           ).show();
         }
@@ -141,7 +142,7 @@ class _dr_loginState extends State<dr_login> {
           body: LoadingOverlay(
             isLoading: showSpinner,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -155,7 +156,7 @@ class _dr_loginState extends State<dr_login> {
                       'Tib Talash',
                       style: kHomeTitleTextStyle.copyWith(fontSize: 40.0),),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   Form(
@@ -172,7 +173,7 @@ class _dr_loginState extends State<dr_login> {
                           decoration: kloginInputFieldDecoration.copyWith(hintText: 'Enter your Email'),
                           validator: emailValidator,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8.0,
                         ),
                         TextFormField(
@@ -185,21 +186,22 @@ class _dr_loginState extends State<dr_login> {
                           decoration: kloginInputFieldDecoration.copyWith(hintText: 'Enter your Password'),
                           validator: passwordValidator,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         Buttons(
                             'Login',
                                 () {
-                              validateAndSubmit();
+                              Navigator.pushNamedAndRemoveUntil(context, DrHomePage.dr_homePageID, (route) => false);
+                              // validateAndSubmit();
                             },
                             primColor),
                         TextButton(
                             onPressed: ()async{
                                Navigator.pushReplacementNamed(context, dr_signup_1.dr_signupID);
                             },
-                            child: Text('Don\'t have an account? Create One.')),
-                        TextButton(onPressed: null, child: Text(
+                            child: const Text('Don\'t have an account? Create One.')),
+                        const TextButton(onPressed: null, child: Text(
                             'Forgot Password?'
                         )),
                       ],

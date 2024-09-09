@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'dart:math';
 
 var num = Random();
@@ -20,7 +20,6 @@ class DoneAppointmentBubble extends StatelessWidget {
         children: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-            primary: Color.fromRGBO(num.nextInt(255), num.nextInt(255), num.nextInt(255), 0.6),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0)
                 )

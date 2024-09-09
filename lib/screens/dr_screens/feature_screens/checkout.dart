@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class cart extends StatefulWidget {
+class CartView extends StatefulWidget {
 
   final List cart_data;
 
-  cart(this.cart_data);
+  const CartView(this.cart_data, {super.key});
 
   @override
-  State<cart> createState() => _cartState();
+  State<CartView> createState() => _CartViewState();
 }
 
-class _cartState extends State<cart> {
+class _CartViewState extends State<CartView> {
 
-  bool UI_check = true;
+  bool uiCheck = true;
   int total = 0;
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _cartState extends State<cart> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepOrange,
-          title: Text('Your Cart',
+          title: const Text('Your Cart',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),),
           centerTitle: true,
           leading: TextButton(onPressed: () {
@@ -39,11 +39,11 @@ class _cartState extends State<cart> {
             });
             Navigator.pop(context);
           },
-              child: Icon(Icons.arrow_back, size: 35.0, color: Colors.white,)),
+              child: const Icon(Icons.arrow_back, size: 35.0, color: Colors.white,)),
         ),
         body: SafeArea(
-            child: UI_check ? SingleChildScrollView(
-              physics: ScrollPhysics(),
+            child: uiCheck ? SingleChildScrollView(
+              physics: const ScrollPhysics(),
               child: Column(
                 children: [
                   Padding(
@@ -63,7 +63,7 @@ class _cartState extends State<cart> {
                         ),
                         Text(
                           'Rs $total',
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20.0,
                               fontFamily: 'Ubuntu',
@@ -74,18 +74,18 @@ class _cartState extends State<cart> {
                     ),
                   ),
                   ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: widget.cart_data.length,
                       itemBuilder: (context, index) {
                         var item = widget.cart_data[index];
                         int current_total = item.medicineprice * item.quantity;
                         return Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 5.0),
                             child: Card(
                               elevation: 2.0,
-                              color: Color(0xfff2efef),
+                              color: const Color(0xfff2efef),
                               child: Column(
                                 children: [
                                   Row(
@@ -141,21 +141,21 @@ class _cartState extends State<cart> {
                                         child: Column(
                                           children: [
                                             Text('${item.medicinename}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18.5,
                                                   fontWeight: FontWeight
                                                       .bold),),
-                                            SizedBox(height: 7.0,),
+                                            const SizedBox(height: 7.0,),
                                             Text('${item.medicineprice}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18.5,
                                                   fontWeight: FontWeight
                                                       .w700),),
-                                            SizedBox(height: 7.0,),
+                                            const SizedBox(height: 7.0,),
                                             Text('${item.quantity}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18.5,
                                                   fontWeight: FontWeight
@@ -165,19 +165,18 @@ class _cartState extends State<cart> {
                                       )
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 7.0,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                            primary: Colors.deepOrange,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius
                                                     .circular(25.0)
                                             ),
-                                            padding: EdgeInsets.all(5.0)
+                                            padding: const EdgeInsets.all(5.0)
                                         ),
                                         onPressed: () {
                                           setState(() {
@@ -185,11 +184,11 @@ class _cartState extends State<cart> {
                                             total = total - current_total;
                                             widget.cart_data.remove(item);
                                             if (widget.cart_data.isEmpty) {
-                                              UI_check = false;
+                                              uiCheck = false;
                                             }
                                           });
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Remove Item',
                                           style: TextStyle(
                                             color: Colors.white,
@@ -212,12 +211,12 @@ class _cartState extends State<cart> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.remove_shopping_cart,
                     color: Colors.grey,
                     size: 90,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   Text(
@@ -229,7 +228,7 @@ class _cartState extends State<cart> {
                         color: Colors.grey.shade600
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 7.0,
                   ),
                   Text(

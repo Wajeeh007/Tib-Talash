@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'package:tib_talash/screens/dr_screens/signup&login/dr_signup_2.dart';
 import 'dr_login.dart';
 import 'package:intl/intl.dart';
@@ -190,7 +190,7 @@ class _dr_signup_1State extends State<dr_signup_1> {
                       ),
                       TextButton(onPressed: () async {
                         Navigator.pushReplacementNamed(context,
-                            dr_login.dr_loginID);
+                            DrLogin.dr_loginID);
                         },
                           child: Text('Already have an account? Log In'))
                     ],

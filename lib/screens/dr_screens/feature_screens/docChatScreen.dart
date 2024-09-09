@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -53,8 +53,8 @@ class _chatScreenState extends State<chatScreen> {
                             }
                             else {
                               messageTextController.clear();
-                              _firestore.collection('doctors_data').doc('$Myid').collection('chats').doc('${widget.id}').collection('chat').add({
-                                "sender_id": Myid,
+                              _firestore.collection('doctors_data').doc('$myId').collection('chats').doc('${widget.id}').collection('chat').add({
+                                "sender_id": myId,
                                 "message": userMessage,
                                 "time": DateTime.now(),
                               });
@@ -84,7 +84,7 @@ class chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return StreamBuilder<QuerySnapshot>(
-          stream: _firestore.collection('doctors_data').doc(Myid).collection('chats').doc('$id').collection('chat').snapshots(),
+          stream: _firestore.collection('doctors_data').doc(myId).collection('chats').doc('$id').collection('chat').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -154,7 +154,7 @@ class MessageBubble extends StatelessWidget {
   final String text;
   final Timestamp time;
   bool isMe(){
-    if(sender == Myid){
+    if(sender == myId){
       return true;
     }
     else{

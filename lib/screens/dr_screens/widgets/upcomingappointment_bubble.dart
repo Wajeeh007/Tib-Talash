@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'dart:math';
 import 'package:tib_talash/screens/dr_screens/feature_screens/patientCard.dart';
 
@@ -22,13 +22,13 @@ class UpAppointmentBubble extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Color.fromRGBO(num.nextInt(255), num.nextInt(255), num.nextInt(255), 0.6),
+            backgroundColor: Color.fromRGBO(num.nextInt(255), num.nextInt(255), num.nextInt(255), 0.6),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0)
             )
         ),
         onPressed: (){
-          print(Myid);
+          print(myId);
           print(uid);
           Navigator.push(context, MaterialPageRoute(builder: (context) => patient_card(uid, name, age, time, gend, pic, msg)));
         },

@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'package:tib_talash/screens/user_screens/feature_screens/doctorCard.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
-class doctorsList extends StatelessWidget {
+class DoctorsList extends StatelessWidget {
   static const doctorsListID = "doctorsList_screen";
-  final String Type;
-  doctorsList(this.Type);
+  final String type;
+  const DoctorsList(this.type, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: listStream(Type),
+        child: ListStream(type),
       ),
     );
   }
 }
-class listStream extends StatelessWidget {
+class ListStream extends StatelessWidget {
 
   final String type;
-  listStream(this.type);
+  const ListStream(this.type, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class listStream extends StatelessWidget {
         stream: _firestore.collection("doctors_data").snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData){
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.lightGreen,
               ),
@@ -64,17 +64,17 @@ class listStream extends StatelessWidget {
 
 class DoctorBubble extends StatelessWidget {
 
-  DoctorBubble(this.firstName, this.lastName, this.specialization, this.Email);
+  const DoctorBubble(this.firstName, this.lastName, this.specialization, this.email, {super.key});
 
   final String firstName;
   final String lastName;
   final String specialization;
-  final String Email;
+  final String email;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Material(
         elevation: 3.0,
         color: Colors.white60,
@@ -82,23 +82,23 @@ class DoctorBubble extends StatelessWidget {
         child: MaterialButton(
           height: 100,
           onPressed: (){
-            filterEmail = Email;
+            filterEmail = email;
            Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorCard(filterEmail)));
           },
             child: Row(
               children: [
-                Icon(Icons.account_circle,size: 60.0,),
-                SizedBox(
+                const Icon(Icons.account_circle,size: 60.0,),
+                const SizedBox(
                   width: 15.0,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Dr. $firstName $lastName', style: TextStyle(fontSize: 22.0, color: Colors.black, fontWeight: FontWeight.bold),),
-                    SizedBox(
+                    Text('Dr. $firstName $lastName', style: const TextStyle(fontSize: 22.0, color: Colors.black, fontWeight: FontWeight.bold),),
+                    const SizedBox(
                       height: 7.0,
                     ),
-                    Text('$specialization', style: TextStyle(fontSize: 18.0, color: Colors.black45, fontWeight: FontWeight.w600),)
+                    Text(specialization, style: const TextStyle(fontSize: 18.0, color: Colors.black45, fontWeight: FontWeight.w600),)
                   ],
                 )
               ],
@@ -111,20 +111,18 @@ class DoctorBubble extends StatelessWidget {
 
 class DoctorCard extends StatelessWidget {
 
-  DoctorCard(this.ID);
-  final String ID;
+  const DoctorCard(this.id, {super.key});
+  final String id;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: primColor,
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back, size: 30.0, color: Colors.white)),
-        title: Padding(
-          padding: const EdgeInsets.only(right: 40.0),
-          child: Center(child: Text('Doctor\'s Details'),),
-        ),
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back, size: 25.0, color: Colors.white)),
+        title: const Text('Doctor\'s Details', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 28),),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
@@ -136,11 +134,11 @@ class DoctorCard extends StatelessWidget {
                 ),
                 child: Column(
                     children: [
-                      main_Data(ID),
-                      SizedBox(
+                      MainData(id),
+                      const SizedBox(
                         height: 30.0,
                       ),
-                      appointment_Details(ID),
+                      appointment_Details(id),
                     ]
                 ),
               ),
@@ -152,9 +150,9 @@ class DoctorCard extends StatelessWidget {
 }
 
 
-class main_Data extends StatelessWidget {
+class MainData extends StatelessWidget {
 
-  main_Data(this.id);
+  const MainData(this.id, {super.key});
   final String id;
 
   @override
@@ -163,7 +161,7 @@ class main_Data extends StatelessWidget {
         stream: _firestore.collection('doctors_data').doc(id).snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.lightGreen,
               ),
@@ -174,18 +172,18 @@ class main_Data extends StatelessWidget {
           doc_name = data['firstname'] + ' ' + data['lastname'];
           final specialization = data['specialization'];
           final exp = data['experience'];
-          final hospital_name = data['hospital'];
+          final hospitalName = data['hospital'];
           final languages = data['languages'];
           fee = data['fee'];
           doc_email = data['email'];
-          final Doctordetail = DoctorDetailBubble(
+          final doctorDetail = DoctorDetailBubble(
               doc_name,
               specialization,
               exp,
-              hospital_name,
+              hospitalName,
               languages.join(", ")
           );
-          doctordetailbubble.add(Doctordetail);
+          doctordetailbubble.add(doctorDetail);
           return Row(
             children: doctordetailbubble,
           );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import '../../dr_screens/feature_screens/checkout.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -16,20 +16,17 @@ class pharmacy extends StatelessWidget {
           bottomNavigationBar: BottomAppBar(
             color: Colors.white,
             elevation: 4.0,
-            child: Padding(
-              padding: EdgeInsets.all(5.0),
-              child: Buttons('View Cart', () {
-                if (cart_sel.isNotEmpty) {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => cart(cart_sel)
-                  )
-                  );
-                }else{
-                  null;
-                }
-               },
-                  Colors.deepOrange),
-            ),
+            child: Buttons('View Cart', () {
+              if (cart_sel.isNotEmpty) {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => CartView(cart_sel)
+                )
+                );
+              }else{
+                null;
+              }
+             },
+                Colors.deepOrange),
           ),
           appBar: AppBar(
             backgroundColor: Colors.deepOrange,
@@ -42,14 +39,14 @@ class pharmacy extends StatelessWidget {
                   });
                   Navigator.pop(context);
                   },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
-                  size: 35.0,
+                  size: 25.0,
                   color: Colors.white,
                 )
             ),
             centerTitle: true,
-            title: Text('Order Medicines'),
+            title: const Text('Order Medicines', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),),
             elevation: 4.0,
             shadowColor: Colors.grey.shade600,
           ),
@@ -92,14 +89,14 @@ class _MedicineBubbleState extends State<MedicineBubble> {
     var height = size.height;
     var width = size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 6.0),
       child: Container(
         height: height/3.0,
         width: width/2.2,
         child: Column(
           children: <Widget>[
             Image.network(
-              '${widget.url}',
+              widget.url,
               width: 75.0,
               height: 75.0,
               frameBuilder: (context, child, frame, wasSynchronouslyLoaded){
@@ -125,23 +122,23 @@ class _MedicineBubbleState extends State<MedicineBubble> {
                 }
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 7.0,
             ),
-            Text('${widget.medicinename}', style: TextStyle(
+            Text(widget.medicinename, style: const TextStyle(
               fontSize: 17.5,
               color: Colors.black,
             ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 2.0,
             ),
-            Text('Price:  RS ${widget.medicineprice}', style: TextStyle(
+            Text('Price:  RS ${widget.medicineprice}', style: const TextStyle(
               fontSize: 15.5,
               color: Colors.grey,
             ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Row(
@@ -164,14 +161,14 @@ class _MedicineBubbleState extends State<MedicineBubble> {
                         });
                       }
                     },
-                    child: Icon(Icons.remove, color: Colors.black,),
+                    child: const Icon(Icons.remove, color: Colors.black,),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8.0,
                 ),
                 Text('${widget.quantity}'),
-                SizedBox(
+                const SizedBox(
                   width: 8.0,
                 ),
                 Container(
@@ -190,17 +187,17 @@ class _MedicineBubbleState extends State<MedicineBubble> {
                         });
                       }
                     },
-                    child: Icon(Icons.add, color: Colors.black,),
+                    child: const Icon(Icons.add, color: Colors.black,),
                   ),
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: widget.check? Colors.grey:Colors.deepOrange,
+                  backgroundColor: Colors.deepOrange,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -213,14 +210,14 @@ class _MedicineBubbleState extends State<MedicineBubble> {
                 },
                 child: Text(
                   widget.check? 'Added to Cart' : 'Add to Cart',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w700,
                       color: Colors.white
                   ),
                 )
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             )
           ],
@@ -238,7 +235,7 @@ class medicineStream extends StatelessWidget {
         stream: _firestore.collection('medicines_data').snapshots(),
         builder: (context, snapshot) {
           if(!snapshot.hasData){
-            return Padding(
+            return const Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               child: Center(
                 child: CircularProgressIndicator(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tib_talash/screens/user_screens/feature_screens/pharmacy.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 import 'feature_screens/findSpecialist.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
                       children:<Widget>[
                         Container(
                           height: 350,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage('images/home_page_logos/Doctors_card.jpg'),
                                 fit: BoxFit.fill),
@@ -31,12 +31,12 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(40.0)),
                               color: Colors.white,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                                 TextButton(
                                   onPressed: null,
                                   child: Icon(Icons.account_circle,
-                                    size: 25.0,),
+                                    size: 35.0,),
                                 ),
                               ],
                             ),
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Material(
                             elevation: 5.0,
-                            color: Color(0xFFc5eae7),
+                            color: const Color(0xFFc5eae7),
                             borderRadius: BorderRadius.circular(15.0),
                             child: MaterialButton(
                               onPressed: () {
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                               minWidth: 250.0,
                               height: 80.0,
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Column(
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                           Expanded(
                             child: Material(
                               elevation: 5.0,
-                              color: Color(0xFFf3f78a),
+                              color: const Color(0xFFf3f78a),
                               borderRadius: BorderRadius.circular(15.0),
                               child: MaterialButton(
                                 onPressed: () {
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 minWidth: 50.0,
                                 height: 220.0,
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10.0,
                           ),
                           Expanded(
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                               children: <Widget>[
                                 Material(
                                   elevation: 5,
-                                  color: Color(0xFFf3c9fc),
+                                  color: const Color(0xFFf3c9fc),
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: MaterialButton(
                                     onPressed: () {
@@ -162,8 +162,8 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     minWidth: 50.0,
                                     height: 80.0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top:9.0, left: 2.0, bottom: 2.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(top:9.0, left: 2.0, bottom: 2.0),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,12 +194,12 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10.0
                                 ),
                                 Material(
                                   elevation: 5.0,
-                                  color: Color(0xFFf7d899),
+                                  color: const Color(0xFFf7d899),
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: MaterialButton(
                                     onPressed: () {
@@ -207,8 +207,8 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     minWidth: 50.0,
                                     height: 80.0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 9.0, bottom: 2.0, left: 2.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(top: 9.0, bottom: 2.0, left: 2.0),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                           Expanded(
                             child: Material(
                               elevation: 5.0,
-                              color: Color(0xFFcff7a5),
+                              color: const Color(0xFFcff7a5),
                               borderRadius: BorderRadius.circular(15.0),
                               child: MaterialButton(
                                 onPressed: () {
@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 minWidth: 50.0,
                                 height: 150.0,
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
@@ -290,13 +290,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10.0,
                           ),
                           Expanded(
                             child: Material(
                               elevation: 5.0,
-                              color: Color(0xFFf4d2d2),
+                              color: const Color(0xFFf4d2d2),
                               borderRadius: BorderRadius.circular(15.0),
                               child: MaterialButton(
                                 onPressed: () {
@@ -304,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 minWidth: 60.0,
                                 height: 150.0,
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(

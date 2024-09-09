@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:tib_talash/constants.dart';
+import 'package:tib_talash/helpers/constants.dart';
 
 var spec_details = [];
 
@@ -175,7 +175,6 @@ class _dr_signup_2State extends State<dr_signup_2> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
                       elevation: 0,
                     ),
                       onPressed: (){
